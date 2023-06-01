@@ -18,9 +18,9 @@
 # @param cert_key_path
 #   Path of the certificate key
 # @param first_host
-#   First host to proxy
+#   First host to proxy. Ensure the trailing / is present
 # @param second_host
-#   Second host to proxy
+#   Second host to proxy. Ensure the trailing / is present
 # @param hostname
 #   Hostname of the proxy
 #
@@ -33,8 +33,8 @@ class nginx_example (
   String $cert_path     = '/etc/ssl/certs/example.crt',
   String $cert_key_path = '/etc/ssl/private/example.key',
 
-  String $first_host    = 'http://10.10.10.10',
-  String $second_host   = 'http://20.20.20.20',
+  String $first_host    = 'http://10.10.10.10/',
+  String $second_host   = 'http://20.20.20.20/',
 
   String $hostname      = 'domain.com',
 ) {
@@ -75,6 +75,17 @@ class nginx_example (
     proxy    => $second_host,
     ssl_only => true,
     server   => $hostname,
+  }
+
+  # Health check
+  nginx::resource::location { '/check/':
+    ssl_only            => true,
+    server              => $hostname,
+    location_cfg_append => {
+      'access_log' => 'none',
+      'add_header' => '\'Content-Type\' \'application/json\'',
+      'return'     => '200 \'{ "service_status": "healthy" }\'',
+    },
   }
 
   #Forward

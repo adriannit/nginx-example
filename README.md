@@ -17,6 +17,15 @@ data/common.yaml
 
 Log format can be modified also the reverse proxy hosts.
 
+# Health check
+200 response code and
+
+```
+service_status: "healthy"
+```
+
+will be printed if nginx startup will succeed.
+
 ## Installing
 Clone the repository in /etc/puppetlabs/code/environments/
 

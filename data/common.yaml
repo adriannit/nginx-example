@@ -1,6 +1,6 @@
 nginx::log_format:
   example: '$server_protocol $remote_addr $upstream_response_time'
 
-#nginx_example::first_host: 'http://111.11.111.11'
-#nginx_example::second_host: 'http://123.123.123.123'
+#nginx_example::first_host: 'http://111.11.111.11/'
+#nginx_example::second_host: 'http://123.123.123.123/'
 #nginx_example::hostname: 'example.org'
